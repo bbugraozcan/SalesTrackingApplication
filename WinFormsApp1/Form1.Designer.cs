@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            Ürün1Textbox = new TextBox();
-            SandıkAdeti1Textbox = new TextBox();
-            ToplamKilo1Textbox = new TextBox();
-            BirimFiyat1Textbox = new TextBox();
-            ToplamFiyat1Textbox = new TextBox();
+            Product1Textbox = new TextBox();
+            NumberofCrates1Textbox = new TextBox();
+            TotalWeight1Textbox = new TextBox();
+            UnitPrice1Textbox = new TextBox();
+            TotalPrice1Textbox = new TextBox();
             ÜrünLabel = new Label();
             SandıkAdetLabel = new Label();
             KiloLabel = new Label();
@@ -44,36 +44,36 @@
             label3 = new Label();
             label4 = new Label();
             label5 = new Label();
-            ToplamFiyat2Textbox = new TextBox();
-            BirimFiyat2Textbox = new TextBox();
-            ToplamKilo2Textbox = new TextBox();
-            SandıkAdeti2Textbox = new TextBox();
-            Ürün2Textbox = new TextBox();
+            TotalPrice2Textbox = new TextBox();
+            UnitPrice2Textbox = new TextBox();
+            TotalWeight2Textbox = new TextBox();
+            NumberofCrates2Textbox = new TextBox();
+            Product2Textbox = new TextBox();
             label6 = new Label();
             label7 = new Label();
             label8 = new Label();
             label9 = new Label();
             label10 = new Label();
-            ToplamFiyat3Textbox = new TextBox();
-            BirimFiyat3Textbox = new TextBox();
-            ToplamKilo3Textbox = new TextBox();
-            SandıkAdeti3Textbox = new TextBox();
-            Ürün3Textbox = new TextBox();
+            TotalPrice3Textbox = new TextBox();
+            UnitPrice3Textbox = new TextBox();
+            TotalWeight3Textbox = new TextBox();
+            NumberofCrates3Textbox = new TextBox();
+            Product3Textbox = new TextBox();
             label11 = new Label();
             label12 = new Label();
             label13 = new Label();
             label14 = new Label();
             label15 = new Label();
-            ToplamFiyat4Textbox = new TextBox();
-            BirimFiyat4Textbox = new TextBox();
-            ToplamKilo4Textbox = new TextBox();
-            SandıkAdeti4Textbox = new TextBox();
-            Ürün4Textbox = new TextBox();
-            MüşteriAdıTextbox = new TextBox();
+            TotalPrice4Textbox = new TextBox();
+            UnitPrice4Textbox = new TextBox();
+            TotalWeight4Textbox = new TextBox();
+            NumberofCrates4Textbox = new TextBox();
+            Product4Textbox = new TextBox();
+            CustomerInfoTextbox = new TextBox();
             MüşteriLabel = new Label();
             TarihLabel = new Label();
-            TarihTextBox = new TextBox();
-            dataGridView1 = new DataGridView();
+            DateTextBox = new TextBox();
+            dataGridView = new DataGridView();
             TarihKolon = new DataGridViewTextBoxColumn();
             MüşteriKolon = new DataGridViewTextBoxColumn();
             ÜrünKolon = new DataGridViewTextBoxColumn();
@@ -81,68 +81,71 @@
             KiloKolon = new DataGridViewTextBoxColumn();
             BirimFiyatKolon = new DataGridViewTextBoxColumn();
             AraToplamKolon = new DataGridViewTextBoxColumn();
-            SatışEkleButon = new Button();
-            ToplamFiyatHesaplaButon = new Button();
+            AddSaleButton = new Button();
             label16 = new Label();
-            ToplamFiyatTextbox = new TextBox();
-            Temizle1Button = new Button();
-            Temizle2Button = new Button();
-            Temizle3Button = new Button();
-            Temizle4Button = new Button();
-            TümünüTemizleButton = new Button();
+            TotalPriceTextbox = new TextBox();
+            Clear1Button = new Button();
+            Clear2Button = new Button();
+            Clear3Button = new Button();
+            Clear4Button = new Button();
+            Clear5Button = new Button();
+            ClearAllButton = new Button();
             printPreviewDialog1 = new PrintPreviewDialog();
             printDocument1 = new System.Drawing.Printing.PrintDocument();
-            YazdırButton = new Button();
-            Temizle5Button = new Button();
+            PrintButton = new Button();
             label17 = new Label();
             label18 = new Label();
             label19 = new Label();
             label20 = new Label();
             label21 = new Label();
-            ToplamFiyat5Textbox = new TextBox();
-            BirimFiyat5Textbox = new TextBox();
-            ToplamKilo5Textbox = new TextBox();
-            SandıkAdeti5Textbox = new TextBox();
-            Ürün5Textbox = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            TotalPrice5Textbox = new TextBox();
+            UnitPrice5Textbox = new TextBox();
+            TotalWeight5Textbox = new TextBox();
+            NumberofCrates5Textbox = new TextBox();
+            Product5Textbox = new TextBox();
+            GeneralTotalPriceTextbox = new TextBox();
+            label22 = new Label();
+            ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
-            // Ürün1Textbox
+            // Product1Textbox
             // 
-            Ürün1Textbox.Location = new Point(13, 103);
-            Ürün1Textbox.Name = "Ürün1Textbox";
-            Ürün1Textbox.Size = new Size(125, 27);
-            Ürün1Textbox.TabIndex = 0;
+            Product1Textbox.Location = new Point(13, 103);
+            Product1Textbox.Name = "Product1Textbox";
+            Product1Textbox.Size = new Size(125, 27);
+            Product1Textbox.TabIndex = 0;
             // 
-            // SandıkAdeti1Textbox
+            // NumberofCrates1Textbox
             // 
-            SandıkAdeti1Textbox.Location = new Point(144, 103);
-            SandıkAdeti1Textbox.Name = "SandıkAdeti1Textbox";
-            SandıkAdeti1Textbox.Size = new Size(125, 27);
-            SandıkAdeti1Textbox.TabIndex = 1;
+            NumberofCrates1Textbox.Location = new Point(144, 103);
+            NumberofCrates1Textbox.Name = "NumberofCrates1Textbox";
+            NumberofCrates1Textbox.Size = new Size(125, 27);
+            NumberofCrates1Textbox.TabIndex = 1;
             // 
-            // ToplamKilo1Textbox
+            // TotalWeight1Textbox
             // 
-            ToplamKilo1Textbox.Location = new Point(275, 103);
-            ToplamKilo1Textbox.Name = "ToplamKilo1Textbox";
-            ToplamKilo1Textbox.Size = new Size(125, 27);
-            ToplamKilo1Textbox.TabIndex = 2;
+            TotalWeight1Textbox.Location = new Point(275, 103);
+            TotalWeight1Textbox.Name = "TotalWeight1Textbox";
+            TotalWeight1Textbox.Size = new Size(125, 27);
+            TotalWeight1Textbox.TabIndex = 2;
+            TotalWeight1Textbox.TextChanged += TotalWeight1Textbox_TextChanged;
             // 
-            // BirimFiyat1Textbox
+            // UnitPrice1Textbox
             // 
-            BirimFiyat1Textbox.Location = new Point(406, 103);
-            BirimFiyat1Textbox.Name = "BirimFiyat1Textbox";
-            BirimFiyat1Textbox.Size = new Size(125, 27);
-            BirimFiyat1Textbox.TabIndex = 3;
+            UnitPrice1Textbox.Location = new Point(406, 103);
+            UnitPrice1Textbox.Name = "UnitPrice1Textbox";
+            UnitPrice1Textbox.Size = new Size(125, 27);
+            UnitPrice1Textbox.TabIndex = 3;
+            UnitPrice1Textbox.TextChanged += UnitPrice1Textbox_TextChanged;
             // 
-            // ToplamFiyat1Textbox
+            // TotalPrice1Textbox
             // 
-            ToplamFiyat1Textbox.Location = new Point(537, 103);
-            ToplamFiyat1Textbox.Name = "ToplamFiyat1Textbox";
-            ToplamFiyat1Textbox.ReadOnly = true;
-            ToplamFiyat1Textbox.Size = new Size(125, 27);
-            ToplamFiyat1Textbox.TabIndex = 4;
-            ToplamFiyat1Textbox.Text = "0";
+            TotalPrice1Textbox.Location = new Point(537, 103);
+            TotalPrice1Textbox.Name = "TotalPrice1Textbox";
+            TotalPrice1Textbox.ReadOnly = true;
+            TotalPrice1Textbox.Size = new Size(125, 27);
+            TotalPrice1Textbox.TabIndex = 4;
+            TotalPrice1Textbox.Text = "0";
             // 
             // ÜrünLabel
             // 
@@ -234,42 +237,44 @@
             label5.TabIndex = 15;
             label5.Text = "Ürün";
             // 
-            // ToplamFiyat2Textbox
+            // TotalPrice2Textbox
             // 
-            ToplamFiyat2Textbox.Location = new Point(537, 167);
-            ToplamFiyat2Textbox.Name = "ToplamFiyat2Textbox";
-            ToplamFiyat2Textbox.ReadOnly = true;
-            ToplamFiyat2Textbox.Size = new Size(125, 27);
-            ToplamFiyat2Textbox.TabIndex = 14;
-            ToplamFiyat2Textbox.Text = "0";
+            TotalPrice2Textbox.Location = new Point(537, 167);
+            TotalPrice2Textbox.Name = "TotalPrice2Textbox";
+            TotalPrice2Textbox.ReadOnly = true;
+            TotalPrice2Textbox.Size = new Size(125, 27);
+            TotalPrice2Textbox.TabIndex = 14;
+            TotalPrice2Textbox.Text = "0";
             // 
-            // BirimFiyat2Textbox
+            // UnitPrice2Textbox
             // 
-            BirimFiyat2Textbox.Location = new Point(406, 167);
-            BirimFiyat2Textbox.Name = "BirimFiyat2Textbox";
-            BirimFiyat2Textbox.Size = new Size(125, 27);
-            BirimFiyat2Textbox.TabIndex = 13;
+            UnitPrice2Textbox.Location = new Point(406, 167);
+            UnitPrice2Textbox.Name = "UnitPrice2Textbox";
+            UnitPrice2Textbox.Size = new Size(125, 27);
+            UnitPrice2Textbox.TabIndex = 13;
+            UnitPrice2Textbox.TextChanged += UnitPrice2Textbox_TextChanged;
             // 
-            // ToplamKilo2Textbox
+            // TotalWeight2Textbox
             // 
-            ToplamKilo2Textbox.Location = new Point(275, 167);
-            ToplamKilo2Textbox.Name = "ToplamKilo2Textbox";
-            ToplamKilo2Textbox.Size = new Size(125, 27);
-            ToplamKilo2Textbox.TabIndex = 12;
+            TotalWeight2Textbox.Location = new Point(275, 167);
+            TotalWeight2Textbox.Name = "TotalWeight2Textbox";
+            TotalWeight2Textbox.Size = new Size(125, 27);
+            TotalWeight2Textbox.TabIndex = 12;
+            TotalWeight2Textbox.TextChanged += TotalWeight2Textbox_TextChanged;
             // 
-            // SandıkAdeti2Textbox
+            // NumberofCrates2Textbox
             // 
-            SandıkAdeti2Textbox.Location = new Point(144, 167);
-            SandıkAdeti2Textbox.Name = "SandıkAdeti2Textbox";
-            SandıkAdeti2Textbox.Size = new Size(125, 27);
-            SandıkAdeti2Textbox.TabIndex = 11;
+            NumberofCrates2Textbox.Location = new Point(144, 167);
+            NumberofCrates2Textbox.Name = "NumberofCrates2Textbox";
+            NumberofCrates2Textbox.Size = new Size(125, 27);
+            NumberofCrates2Textbox.TabIndex = 11;
             // 
-            // Ürün2Textbox
+            // Product2Textbox
             // 
-            Ürün2Textbox.Location = new Point(13, 167);
-            Ürün2Textbox.Name = "Ürün2Textbox";
-            Ürün2Textbox.Size = new Size(125, 27);
-            Ürün2Textbox.TabIndex = 10;
+            Product2Textbox.Location = new Point(13, 167);
+            Product2Textbox.Name = "Product2Textbox";
+            Product2Textbox.Size = new Size(125, 27);
+            Product2Textbox.TabIndex = 10;
             // 
             // label6
             // 
@@ -316,42 +321,44 @@
             label10.TabIndex = 25;
             label10.Text = "Ürün";
             // 
-            // ToplamFiyat3Textbox
+            // TotalPrice3Textbox
             // 
-            ToplamFiyat3Textbox.Location = new Point(537, 231);
-            ToplamFiyat3Textbox.Name = "ToplamFiyat3Textbox";
-            ToplamFiyat3Textbox.ReadOnly = true;
-            ToplamFiyat3Textbox.Size = new Size(125, 27);
-            ToplamFiyat3Textbox.TabIndex = 24;
-            ToplamFiyat3Textbox.Text = "0";
+            TotalPrice3Textbox.Location = new Point(537, 231);
+            TotalPrice3Textbox.Name = "TotalPrice3Textbox";
+            TotalPrice3Textbox.ReadOnly = true;
+            TotalPrice3Textbox.Size = new Size(125, 27);
+            TotalPrice3Textbox.TabIndex = 24;
+            TotalPrice3Textbox.Text = "0";
             // 
-            // BirimFiyat3Textbox
+            // UnitPrice3Textbox
             // 
-            BirimFiyat3Textbox.Location = new Point(406, 231);
-            BirimFiyat3Textbox.Name = "BirimFiyat3Textbox";
-            BirimFiyat3Textbox.Size = new Size(125, 27);
-            BirimFiyat3Textbox.TabIndex = 23;
+            UnitPrice3Textbox.Location = new Point(406, 231);
+            UnitPrice3Textbox.Name = "UnitPrice3Textbox";
+            UnitPrice3Textbox.Size = new Size(125, 27);
+            UnitPrice3Textbox.TabIndex = 23;
+            UnitPrice3Textbox.TextChanged += UnitPrice3Textbox_TextChanged;
             // 
-            // ToplamKilo3Textbox
+            // TotalWeight3Textbox
             // 
-            ToplamKilo3Textbox.Location = new Point(275, 231);
-            ToplamKilo3Textbox.Name = "ToplamKilo3Textbox";
-            ToplamKilo3Textbox.Size = new Size(125, 27);
-            ToplamKilo3Textbox.TabIndex = 22;
+            TotalWeight3Textbox.Location = new Point(275, 231);
+            TotalWeight3Textbox.Name = "TotalWeight3Textbox";
+            TotalWeight3Textbox.Size = new Size(125, 27);
+            TotalWeight3Textbox.TabIndex = 22;
+            TotalWeight3Textbox.TextChanged += TotalWeight3Textbox_TextChanged;
             // 
-            // SandıkAdeti3Textbox
+            // NumberofCrates3Textbox
             // 
-            SandıkAdeti3Textbox.Location = new Point(144, 231);
-            SandıkAdeti3Textbox.Name = "SandıkAdeti3Textbox";
-            SandıkAdeti3Textbox.Size = new Size(125, 27);
-            SandıkAdeti3Textbox.TabIndex = 21;
+            NumberofCrates3Textbox.Location = new Point(144, 231);
+            NumberofCrates3Textbox.Name = "NumberofCrates3Textbox";
+            NumberofCrates3Textbox.Size = new Size(125, 27);
+            NumberofCrates3Textbox.TabIndex = 21;
             // 
-            // Ürün3Textbox
+            // Product3Textbox
             // 
-            Ürün3Textbox.Location = new Point(13, 231);
-            Ürün3Textbox.Name = "Ürün3Textbox";
-            Ürün3Textbox.Size = new Size(125, 27);
-            Ürün3Textbox.TabIndex = 20;
+            Product3Textbox.Location = new Point(13, 231);
+            Product3Textbox.Name = "Product3Textbox";
+            Product3Textbox.Size = new Size(125, 27);
+            Product3Textbox.TabIndex = 20;
             // 
             // label11
             // 
@@ -398,54 +405,56 @@
             label15.TabIndex = 35;
             label15.Text = "Ürün";
             // 
-            // ToplamFiyat4Textbox
+            // TotalPrice4Textbox
             // 
-            ToplamFiyat4Textbox.Location = new Point(537, 294);
-            ToplamFiyat4Textbox.Name = "ToplamFiyat4Textbox";
-            ToplamFiyat4Textbox.ReadOnly = true;
-            ToplamFiyat4Textbox.Size = new Size(125, 27);
-            ToplamFiyat4Textbox.TabIndex = 34;
-            ToplamFiyat4Textbox.Text = "0";
+            TotalPrice4Textbox.Location = new Point(537, 294);
+            TotalPrice4Textbox.Name = "TotalPrice4Textbox";
+            TotalPrice4Textbox.ReadOnly = true;
+            TotalPrice4Textbox.Size = new Size(125, 27);
+            TotalPrice4Textbox.TabIndex = 34;
+            TotalPrice4Textbox.Text = "0";
             // 
-            // BirimFiyat4Textbox
+            // UnitPrice4Textbox
             // 
-            BirimFiyat4Textbox.Location = new Point(406, 294);
-            BirimFiyat4Textbox.Name = "BirimFiyat4Textbox";
-            BirimFiyat4Textbox.Size = new Size(125, 27);
-            BirimFiyat4Textbox.TabIndex = 33;
+            UnitPrice4Textbox.Location = new Point(406, 294);
+            UnitPrice4Textbox.Name = "UnitPrice4Textbox";
+            UnitPrice4Textbox.Size = new Size(125, 27);
+            UnitPrice4Textbox.TabIndex = 33;
+            UnitPrice4Textbox.TextChanged += UnitPrice4Textbox_TextChanged;
             // 
-            // ToplamKilo4Textbox
+            // TotalWeight4Textbox
             // 
-            ToplamKilo4Textbox.Location = new Point(275, 294);
-            ToplamKilo4Textbox.Name = "ToplamKilo4Textbox";
-            ToplamKilo4Textbox.Size = new Size(125, 27);
-            ToplamKilo4Textbox.TabIndex = 32;
+            TotalWeight4Textbox.Location = new Point(275, 294);
+            TotalWeight4Textbox.Name = "TotalWeight4Textbox";
+            TotalWeight4Textbox.Size = new Size(125, 27);
+            TotalWeight4Textbox.TabIndex = 32;
+            TotalWeight4Textbox.TextChanged += TotalWeight4Textbox_TextChanged;
             // 
-            // SandıkAdeti4Textbox
+            // NumberofCrates4Textbox
             // 
-            SandıkAdeti4Textbox.Location = new Point(144, 294);
-            SandıkAdeti4Textbox.Name = "SandıkAdeti4Textbox";
-            SandıkAdeti4Textbox.Size = new Size(125, 27);
-            SandıkAdeti4Textbox.TabIndex = 31;
+            NumberofCrates4Textbox.Location = new Point(144, 294);
+            NumberofCrates4Textbox.Name = "NumberofCrates4Textbox";
+            NumberofCrates4Textbox.Size = new Size(125, 27);
+            NumberofCrates4Textbox.TabIndex = 31;
             // 
-            // Ürün4Textbox
+            // Product4Textbox
             // 
-            Ürün4Textbox.Location = new Point(13, 294);
-            Ürün4Textbox.Name = "Ürün4Textbox";
-            Ürün4Textbox.Size = new Size(125, 27);
-            Ürün4Textbox.TabIndex = 30;
+            Product4Textbox.Location = new Point(13, 294);
+            Product4Textbox.Name = "Product4Textbox";
+            Product4Textbox.Size = new Size(125, 27);
+            Product4Textbox.TabIndex = 30;
             // 
-            // MüşteriAdıTextbox
+            // CustomerInfoTextbox
             // 
-            MüşteriAdıTextbox.Location = new Point(154, 28);
-            MüşteriAdıTextbox.Name = "MüşteriAdıTextbox";
-            MüşteriAdıTextbox.Size = new Size(247, 27);
-            MüşteriAdıTextbox.TabIndex = 40;
+            CustomerInfoTextbox.Location = new Point(154, 28);
+            CustomerInfoTextbox.Name = "CustomerInfoTextbox";
+            CustomerInfoTextbox.Size = new Size(247, 27);
+            CustomerInfoTextbox.TabIndex = 40;
             // 
             // MüşteriLabel
             // 
             MüşteriLabel.AutoSize = true;
-            MüşteriLabel.Location = new Point(14, 28);
+            MüşteriLabel.Location = new Point(14, 31);
             MüşteriLabel.Name = "MüşteriLabel";
             MüşteriLabel.Size = new Size(134, 20);
             MüşteriLabel.TabIndex = 41;
@@ -454,28 +463,30 @@
             // TarihLabel
             // 
             TarihLabel.AutoSize = true;
-            TarihLabel.Location = new Point(469, 28);
+            TarihLabel.Location = new Point(469, 31);
             TarihLabel.Name = "TarihLabel";
             TarihLabel.Size = new Size(40, 20);
             TarihLabel.TabIndex = 43;
             TarihLabel.Text = "Tarih";
             // 
-            // TarihTextBox
+            // DateTextBox
             // 
-            TarihTextBox.Location = new Point(515, 28);
-            TarihTextBox.Name = "TarihTextBox";
-            TarihTextBox.Size = new Size(147, 27);
-            TarihTextBox.TabIndex = 42;
+            DateTextBox.Location = new Point(515, 28);
+            DateTextBox.Name = "DateTextBox";
+            DateTextBox.Size = new Size(147, 27);
+            DateTextBox.TabIndex = 42;
             // 
-            // dataGridView1
+            // dataGridView
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { TarihKolon, MüşteriKolon, ÜrünKolon, SandıkAdetKolon, KiloKolon, BirimFiyatKolon, AraToplamKolon });
-            dataGridView1.Location = new Point(14, 445);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(929, 400);
-            dataGridView1.TabIndex = 44;
+            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView.Columns.AddRange(new DataGridViewColumn[] { TarihKolon, MüşteriKolon, ÜrünKolon, SandıkAdetKolon, KiloKolon, BirimFiyatKolon, AraToplamKolon });
+            dataGridView.Location = new Point(14, 403);
+            dataGridView.Name = "dataGridView";
+            dataGridView.RowHeadersWidth = 51;
+            dataGridView.Size = new Size(929, 400);
+            dataGridView.TabIndex = 44;
+            dataGridView.CellValueChanged += dataGridView_CellValueChanged;
+            dataGridView.RowsRemoved += dataGridView_RowsRemoved;
             // 
             // TarihKolon
             // 
@@ -526,94 +537,93 @@
             AraToplamKolon.Name = "AraToplamKolon";
             AraToplamKolon.Width = 125;
             // 
-            // SatışEkleButon
+            // AddSaleButton
             // 
-            SatışEkleButon.Location = new Point(818, 355);
-            SatışEkleButon.Name = "SatışEkleButon";
-            SatışEkleButon.Size = new Size(125, 39);
-            SatışEkleButon.TabIndex = 45;
-            SatışEkleButon.Text = "SATIŞ EKLE";
-            SatışEkleButon.UseVisualStyleBackColor = true;
-            SatışEkleButon.Click += button1_Click;
-            // 
-            // ToplamFiyatHesaplaButon
-            // 
-            ToplamFiyatHesaplaButon.Location = new Point(12, 400);
-            ToplamFiyatHesaplaButon.Name = "ToplamFiyatHesaplaButon";
-            ToplamFiyatHesaplaButon.Size = new Size(256, 39);
-            ToplamFiyatHesaplaButon.TabIndex = 46;
-            ToplamFiyatHesaplaButon.Text = "TOPLAM FİYAT HESAPLA";
-            ToplamFiyatHesaplaButon.UseVisualStyleBackColor = true;
-            ToplamFiyatHesaplaButon.Click += ToplamFiyatHesaplaButon_Click;
+            AddSaleButton.Location = new Point(818, 354);
+            AddSaleButton.Name = "AddSaleButton";
+            AddSaleButton.Size = new Size(125, 39);
+            AddSaleButton.TabIndex = 45;
+            AddSaleButton.Text = "SATIŞ EKLE";
+            AddSaleButton.UseVisualStyleBackColor = true;
+            AddSaleButton.Click += AddSaleButton_Click;
             // 
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new Point(274, 409);
+            label16.Location = new Point(818, 286);
             label16.Name = "label16";
-            label16.Size = new Size(94, 20);
+            label16.Size = new Size(86, 20);
             label16.TabIndex = 47;
-            label16.Text = "Toplam Fiyat";
+            label16.Text = "Ara Toplam";
             // 
-            // ToplamFiyatTextbox
+            // TotalPriceTextbox
             // 
-            ToplamFiyatTextbox.Location = new Point(374, 406);
-            ToplamFiyatTextbox.Name = "ToplamFiyatTextbox";
-            ToplamFiyatTextbox.ReadOnly = true;
-            ToplamFiyatTextbox.Size = new Size(125, 27);
-            ToplamFiyatTextbox.TabIndex = 48;
-            ToplamFiyatTextbox.Text = "0";
-            ToplamFiyatTextbox.TextChanged += ToplamFiyatTextbox_TextChanged;
+            TotalPriceTextbox.Location = new Point(818, 309);
+            TotalPriceTextbox.Name = "TotalPriceTextbox";
+            TotalPriceTextbox.ReadOnly = true;
+            TotalPriceTextbox.Size = new Size(125, 27);
+            TotalPriceTextbox.TabIndex = 48;
+            TotalPriceTextbox.Text = "0";
             // 
-            // Temizle1Button
+            // Clear1Button
             // 
-            Temizle1Button.Location = new Point(668, 103);
-            Temizle1Button.Name = "Temizle1Button";
-            Temizle1Button.Size = new Size(94, 27);
-            Temizle1Button.TabIndex = 49;
-            Temizle1Button.Text = "Temizle";
-            Temizle1Button.UseVisualStyleBackColor = true;
-            Temizle1Button.Click += Temizle1Button_Click;
+            Clear1Button.Location = new Point(668, 103);
+            Clear1Button.Name = "Clear1Button";
+            Clear1Button.Size = new Size(94, 27);
+            Clear1Button.TabIndex = 49;
+            Clear1Button.Text = "Temizle";
+            Clear1Button.UseVisualStyleBackColor = true;
+            Clear1Button.Click += Clear1Button_Click;
             // 
-            // Temizle2Button
+            // Clear2Button
             // 
-            Temizle2Button.Location = new Point(668, 167);
-            Temizle2Button.Name = "Temizle2Button";
-            Temizle2Button.Size = new Size(94, 27);
-            Temizle2Button.TabIndex = 50;
-            Temizle2Button.Text = "Temizle";
-            Temizle2Button.UseVisualStyleBackColor = true;
-            Temizle2Button.Click += Temizle2Button_Click;
+            Clear2Button.Location = new Point(668, 167);
+            Clear2Button.Name = "Clear2Button";
+            Clear2Button.Size = new Size(94, 27);
+            Clear2Button.TabIndex = 50;
+            Clear2Button.Text = "Temizle";
+            Clear2Button.UseVisualStyleBackColor = true;
+            Clear2Button.Click += Clear2Button_Click;
             // 
-            // Temizle3Button
+            // Clear3Button
             // 
-            Temizle3Button.Location = new Point(668, 231);
-            Temizle3Button.Name = "Temizle3Button";
-            Temizle3Button.Size = new Size(94, 27);
-            Temizle3Button.TabIndex = 51;
-            Temizle3Button.Text = "Temizle";
-            Temizle3Button.UseVisualStyleBackColor = true;
-            Temizle3Button.Click += Temizle3Button_Click;
+            Clear3Button.Location = new Point(668, 231);
+            Clear3Button.Name = "Clear3Button";
+            Clear3Button.Size = new Size(94, 27);
+            Clear3Button.TabIndex = 51;
+            Clear3Button.Text = "Temizle";
+            Clear3Button.UseVisualStyleBackColor = true;
+            Clear3Button.Click += Clear3Button_Click;
             // 
-            // Temizle4Button
+            // Clear4Button
             // 
-            Temizle4Button.Location = new Point(668, 294);
-            Temizle4Button.Name = "Temizle4Button";
-            Temizle4Button.Size = new Size(94, 27);
-            Temizle4Button.TabIndex = 52;
-            Temizle4Button.Text = "Temizle";
-            Temizle4Button.UseVisualStyleBackColor = true;
-            Temizle4Button.Click += Temizle4Button_Click;
+            Clear4Button.Location = new Point(668, 294);
+            Clear4Button.Name = "Clear4Button";
+            Clear4Button.Size = new Size(94, 27);
+            Clear4Button.TabIndex = 52;
+            Clear4Button.Text = "Temizle";
+            Clear4Button.UseVisualStyleBackColor = true;
+            Clear4Button.Click += Clear4Button_Click;
             // 
-            // TümünüTemizleButton
+            // Clear5Button
             // 
-            TümünüTemizleButton.Location = new Point(604, 400);
-            TümünüTemizleButton.Name = "TümünüTemizleButton";
-            TümünüTemizleButton.Size = new Size(158, 39);
-            TümünüTemizleButton.TabIndex = 53;
-            TümünüTemizleButton.Text = "TÜMÜNÜ TEMİZLE";
-            TümünüTemizleButton.UseVisualStyleBackColor = true;
-            TümünüTemizleButton.Click += TümünüTemizleButton_Click;
+            Clear5Button.Location = new Point(668, 359);
+            Clear5Button.Name = "Clear5Button";
+            Clear5Button.Size = new Size(94, 27);
+            Clear5Button.TabIndex = 52;
+            Clear5Button.Text = "Temizle";
+            Clear5Button.UseVisualStyleBackColor = true;
+            Clear5Button.Click += Clear5Button_Click;
+            // 
+            // ClearAllButton
+            // 
+            ClearAllButton.Location = new Point(785, 22);
+            ClearAllButton.Name = "ClearAllButton";
+            ClearAllButton.Size = new Size(158, 39);
+            ClearAllButton.TabIndex = 53;
+            ClearAllButton.Text = "TÜMÜNÜ TEMİZLE";
+            ClearAllButton.UseVisualStyleBackColor = true;
+            ClearAllButton.Click += TümünüTemizleButton_Click;
             // 
             // printPreviewDialog1
             // 
@@ -630,24 +640,15 @@
             // 
             printDocument1.PrintPage += printDocument1_PrintPage;
             // 
-            // YazdırButton
+            // PrintButton
             // 
-            YazdırButton.Location = new Point(818, 400);
-            YazdırButton.Name = "YazdırButton";
-            YazdırButton.Size = new Size(125, 39);
-            YazdırButton.TabIndex = 54;
-            YazdırButton.Text = "YAZDIR";
-            YazdırButton.UseVisualStyleBackColor = true;
-            YazdırButton.Click += YazdırButton_Click;
-            // 
-            // Temizle5Button
-            // 
-            Temizle5Button.Location = new Point(668, 360);
-            Temizle5Button.Name = "Temizle5Button";
-            Temizle5Button.Size = new Size(94, 27);
-            Temizle5Button.TabIndex = 65;
-            Temizle5Button.Text = "Temizle";
-            Temizle5Button.UseVisualStyleBackColor = true;
+            PrintButton.Location = new Point(820, 820);
+            PrintButton.Name = "PrintButton";
+            PrintButton.Size = new Size(125, 39);
+            PrintButton.TabIndex = 54;
+            PrintButton.Text = "YAZDIR";
+            PrintButton.UseVisualStyleBackColor = true;
+            PrintButton.Click += PrintButton_Click;
             // 
             // label17
             // 
@@ -694,130 +695,151 @@
             label21.TabIndex = 60;
             label21.Text = "Ürün";
             // 
-            // ToplamFiyat5Textbox
+            // TotalPrice5Textbox
             // 
-            ToplamFiyat5Textbox.Location = new Point(537, 360);
-            ToplamFiyat5Textbox.Name = "ToplamFiyat5Textbox";
-            ToplamFiyat5Textbox.ReadOnly = true;
-            ToplamFiyat5Textbox.Size = new Size(125, 27);
-            ToplamFiyat5Textbox.TabIndex = 59;
-            ToplamFiyat5Textbox.Text = "0";
+            TotalPrice5Textbox.Location = new Point(537, 360);
+            TotalPrice5Textbox.Name = "TotalPrice5Textbox";
+            TotalPrice5Textbox.ReadOnly = true;
+            TotalPrice5Textbox.Size = new Size(125, 27);
+            TotalPrice5Textbox.TabIndex = 59;
+            TotalPrice5Textbox.Text = "0";
             // 
-            // BirimFiyat5Textbox
+            // UnitPrice5Textbox
             // 
-            BirimFiyat5Textbox.Location = new Point(406, 360);
-            BirimFiyat5Textbox.Name = "BirimFiyat5Textbox";
-            BirimFiyat5Textbox.Size = new Size(125, 27);
-            BirimFiyat5Textbox.TabIndex = 58;
+            UnitPrice5Textbox.Location = new Point(406, 360);
+            UnitPrice5Textbox.Name = "UnitPrice5Textbox";
+            UnitPrice5Textbox.Size = new Size(125, 27);
+            UnitPrice5Textbox.TabIndex = 58;
+            UnitPrice5Textbox.TextChanged += UnitPrice5Textbox_TextChanged;
             // 
-            // ToplamKilo5Textbox
+            // TotalWeight5Textbox
             // 
-            ToplamKilo5Textbox.Location = new Point(275, 360);
-            ToplamKilo5Textbox.Name = "ToplamKilo5Textbox";
-            ToplamKilo5Textbox.Size = new Size(125, 27);
-            ToplamKilo5Textbox.TabIndex = 57;
+            TotalWeight5Textbox.Location = new Point(275, 360);
+            TotalWeight5Textbox.Name = "TotalWeight5Textbox";
+            TotalWeight5Textbox.Size = new Size(125, 27);
+            TotalWeight5Textbox.TabIndex = 57;
+            TotalWeight5Textbox.TextChanged += TotalWeight5Textbox_TextChanged;
             // 
-            // SandıkAdeti5Textbox
+            // NumberofCrates5Textbox
             // 
-            SandıkAdeti5Textbox.Location = new Point(144, 360);
-            SandıkAdeti5Textbox.Name = "SandıkAdeti5Textbox";
-            SandıkAdeti5Textbox.Size = new Size(125, 27);
-            SandıkAdeti5Textbox.TabIndex = 56;
+            NumberofCrates5Textbox.Location = new Point(144, 360);
+            NumberofCrates5Textbox.Name = "NumberofCrates5Textbox";
+            NumberofCrates5Textbox.Size = new Size(125, 27);
+            NumberofCrates5Textbox.TabIndex = 56;
             // 
-            // Ürün5Textbox
+            // Product5Textbox
             // 
-            Ürün5Textbox.Location = new Point(13, 360);
-            Ürün5Textbox.Name = "Ürün5Textbox";
-            Ürün5Textbox.Size = new Size(125, 27);
-            Ürün5Textbox.TabIndex = 55;
+            Product5Textbox.Location = new Point(13, 360);
+            Product5Textbox.Name = "Product5Textbox";
+            Product5Textbox.Size = new Size(125, 27);
+            Product5Textbox.TabIndex = 55;
+            // 
+            // GeneralTotalPriceTextbox
+            // 
+            GeneralTotalPriceTextbox.Location = new Point(132, 827);
+            GeneralTotalPriceTextbox.Name = "GeneralTotalPriceTextbox";
+            GeneralTotalPriceTextbox.ReadOnly = true;
+            GeneralTotalPriceTextbox.Size = new Size(125, 27);
+            GeneralTotalPriceTextbox.TabIndex = 67;
+            GeneralTotalPriceTextbox.Text = "0";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Location = new Point(25, 830);
+            label22.Name = "label22";
+            label22.Size = new Size(101, 20);
+            label22.TabIndex = 66;
+            label22.Text = "Genel Toplam";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GradientInactiveCaption;
-            ClientSize = new Size(957, 856);
-            Controls.Add(Temizle5Button);
+            ClientSize = new Size(957, 882);
+            Controls.Add(GeneralTotalPriceTextbox);
+            Controls.Add(label22);
             Controls.Add(label17);
             Controls.Add(label18);
             Controls.Add(label19);
             Controls.Add(label20);
             Controls.Add(label21);
-            Controls.Add(ToplamFiyat5Textbox);
-            Controls.Add(BirimFiyat5Textbox);
-            Controls.Add(ToplamKilo5Textbox);
-            Controls.Add(SandıkAdeti5Textbox);
-            Controls.Add(Ürün5Textbox);
-            Controls.Add(YazdırButton);
-            Controls.Add(TümünüTemizleButton);
-            Controls.Add(Temizle4Button);
-            Controls.Add(Temizle3Button);
-            Controls.Add(Temizle2Button);
-            Controls.Add(Temizle1Button);
-            Controls.Add(ToplamFiyatTextbox);
+            Controls.Add(TotalPrice5Textbox);
+            Controls.Add(UnitPrice5Textbox);
+            Controls.Add(TotalWeight5Textbox);
+            Controls.Add(NumberofCrates5Textbox);
+            Controls.Add(Product5Textbox);
+            Controls.Add(PrintButton);
+            Controls.Add(ClearAllButton);
+            Controls.Add(Clear5Button);
+            Controls.Add(Clear4Button);
+            Controls.Add(Clear3Button);
+            Controls.Add(Clear2Button);
+            Controls.Add(Clear1Button);
+            Controls.Add(TotalPriceTextbox);
             Controls.Add(label16);
-            Controls.Add(ToplamFiyatHesaplaButon);
-            Controls.Add(SatışEkleButon);
-            Controls.Add(dataGridView1);
+            Controls.Add(AddSaleButton);
+            Controls.Add(dataGridView);
             Controls.Add(TarihLabel);
-            Controls.Add(TarihTextBox);
+            Controls.Add(DateTextBox);
             Controls.Add(MüşteriLabel);
-            Controls.Add(MüşteriAdıTextbox);
+            Controls.Add(CustomerInfoTextbox);
             Controls.Add(label11);
             Controls.Add(label12);
             Controls.Add(label13);
             Controls.Add(label14);
             Controls.Add(label15);
-            Controls.Add(ToplamFiyat4Textbox);
-            Controls.Add(BirimFiyat4Textbox);
-            Controls.Add(ToplamKilo4Textbox);
-            Controls.Add(SandıkAdeti4Textbox);
-            Controls.Add(Ürün4Textbox);
+            Controls.Add(TotalPrice4Textbox);
+            Controls.Add(UnitPrice4Textbox);
+            Controls.Add(TotalWeight4Textbox);
+            Controls.Add(NumberofCrates4Textbox);
+            Controls.Add(Product4Textbox);
             Controls.Add(label6);
             Controls.Add(label7);
             Controls.Add(label8);
             Controls.Add(label9);
             Controls.Add(label10);
-            Controls.Add(ToplamFiyat3Textbox);
-            Controls.Add(BirimFiyat3Textbox);
-            Controls.Add(ToplamKilo3Textbox);
-            Controls.Add(SandıkAdeti3Textbox);
-            Controls.Add(Ürün3Textbox);
+            Controls.Add(TotalPrice3Textbox);
+            Controls.Add(UnitPrice3Textbox);
+            Controls.Add(TotalWeight3Textbox);
+            Controls.Add(NumberofCrates3Textbox);
+            Controls.Add(Product3Textbox);
             Controls.Add(label1);
             Controls.Add(label2);
             Controls.Add(label3);
             Controls.Add(label4);
             Controls.Add(label5);
-            Controls.Add(ToplamFiyat2Textbox);
-            Controls.Add(BirimFiyat2Textbox);
-            Controls.Add(ToplamKilo2Textbox);
-            Controls.Add(SandıkAdeti2Textbox);
-            Controls.Add(Ürün2Textbox);
+            Controls.Add(TotalPrice2Textbox);
+            Controls.Add(UnitPrice2Textbox);
+            Controls.Add(TotalWeight2Textbox);
+            Controls.Add(NumberofCrates2Textbox);
+            Controls.Add(Product2Textbox);
             Controls.Add(ToplamFiyatLabel);
             Controls.Add(BirimFiyatLabel);
             Controls.Add(KiloLabel);
             Controls.Add(SandıkAdetLabel);
             Controls.Add(ÜrünLabel);
-            Controls.Add(ToplamFiyat1Textbox);
-            Controls.Add(BirimFiyat1Textbox);
-            Controls.Add(ToplamKilo1Textbox);
-            Controls.Add(SandıkAdeti1Textbox);
-            Controls.Add(Ürün1Textbox);
+            Controls.Add(TotalPrice1Textbox);
+            Controls.Add(UnitPrice1Textbox);
+            Controls.Add(TotalWeight1Textbox);
+            Controls.Add(NumberofCrates1Textbox);
+            Controls.Add(Product1Textbox);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private TextBox Ürün1Textbox;
-        private TextBox SandıkAdeti1Textbox;
-        private TextBox ToplamKilo1Textbox;
-        private TextBox BirimFiyat1Textbox;
-        private TextBox ToplamFiyat1Textbox;
+        private TextBox Product1Textbox;
+        private TextBox NumberofCrates1Textbox;
+        private TextBox TotalWeight1Textbox;
+        private TextBox UnitPrice1Textbox;
+        private TextBox TotalPrice1Textbox;
         private Label ÜrünLabel;
         private Label SandıkAdetLabel;
         private Label KiloLabel;
@@ -828,40 +850,39 @@
         private Label label3;
         private Label label4;
         private Label label5;
-        private TextBox ToplamFiyat2Textbox;
-        private TextBox BirimFiyat2Textbox;
-        private TextBox ToplamKilo2Textbox;
-        private TextBox SandıkAdeti2Textbox;
-        private TextBox Ürün2Textbox;
+        private TextBox TotalPrice2Textbox;
+        private TextBox UnitPrice2Textbox;
+        private TextBox TotalWeight2Textbox;
+        private TextBox NumberofCrates2Textbox;
+        private TextBox Product2Textbox;
         private Label label6;
         private Label label7;
         private Label label8;
         private Label label9;
         private Label label10;
-        private TextBox ToplamFiyat3Textbox;
-        private TextBox BirimFiyat3Textbox;
-        private TextBox ToplamKilo3Textbox;
-        private TextBox SandıkAdeti3Textbox;
-        private TextBox Ürün3Textbox;
+        private TextBox TotalPrice3Textbox;
+        private TextBox UnitPrice3Textbox;
+        private TextBox TotalWeight3Textbox;
+        private TextBox NumberofCrates3Textbox;
+        private TextBox Product3Textbox;
         private Label label11;
         private Label label12;
         private Label label13;
         private Label label14;
         private Label label15;
-        private TextBox ToplamFiyat4Textbox;
-        private TextBox BirimFiyat4Textbox;
-        private TextBox ToplamKilo4Textbox;
-        private TextBox SandıkAdeti4Textbox;
-        private TextBox Ürün4Textbox;
-        private TextBox MüşteriAdıTextbox;
+        private TextBox TotalPrice4Textbox;
+        private TextBox UnitPrice4Textbox;
+        private TextBox TotalWeight4Textbox;
+        private TextBox NumberofCrates4Textbox;
+        private TextBox Product4Textbox;
+        private TextBox CustomerInfoTextbox;
         private Label MüşteriLabel;
         private Label TarihLabel;
-        private TextBox TarihTextBox;
-        private DataGridView dataGridView1;
-        private Button SatışEkleButon;
-        private Button ToplamFiyatHesaplaButon;
+        private TextBox DateTextBox;
+        private DataGridView dataGridView;
+        private Button AddSaleButton;
         private Label label16;
-        private TextBox ToplamFiyatTextbox;
+        private TextBox TotalPriceTextbox;
         private DataGridViewTextBoxColumn TarihKolon;
         private DataGridViewTextBoxColumn MüşteriKolon;
         private DataGridViewTextBoxColumn ÜrünKolon;
@@ -869,24 +890,26 @@
         private DataGridViewTextBoxColumn KiloKolon;
         private DataGridViewTextBoxColumn BirimFiyatKolon;
         private DataGridViewTextBoxColumn AraToplamKolon;
-        private Button Temizle1Button;
-        private Button Temizle2Button;
-        private Button Temizle3Button;
-        private Button Temizle4Button;
-        private Button TümünüTemizleButton;
+        private Button Clear1Button;
+        private Button Clear2Button;
+        private Button Clear3Button;
+        private Button Clear4Button;
+        private Button Clear5Button;
+        private Button ClearAllButton;
         private PrintPreviewDialog printPreviewDialog1;
         private System.Drawing.Printing.PrintDocument printDocument1;
-        private Button YazdırButton;
-        private Button Temizle5Button;
+        private Button PrintButton;
         private Label label17;
         private Label label18;
         private Label label19;
         private Label label20;
         private Label label21;
-        private TextBox ToplamFiyat5Textbox;
-        private TextBox BirimFiyat5Textbox;
-        private TextBox ToplamKilo5Textbox;
-        private TextBox SandıkAdeti5Textbox;
-        private TextBox Ürün5Textbox;
+        private TextBox TotalPrice5Textbox;
+        private TextBox UnitPrice5Textbox;
+        private TextBox TotalWeight5Textbox;
+        private TextBox NumberofCrates5Textbox;
+        private TextBox Product5Textbox;
+        private TextBox GeneralTotalPriceTextbox;
+        private Label label22;
     }
 }
