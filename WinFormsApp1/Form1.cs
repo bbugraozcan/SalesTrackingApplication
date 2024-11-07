@@ -1,3 +1,6 @@
+using System;
+using MySql.Data.MySqlClient;
+using System.Data;
 using System.Drawing.Printing;
 using System.Windows.Forms;
 
@@ -8,6 +11,7 @@ namespace WinFormsApp1
         public Form1()
         {
             InitializeComponent();
+            DatabaseConnection();
         }
 
         private void AddSaleButton_Click(object sender, EventArgs e)
@@ -206,7 +210,7 @@ namespace WinFormsApp1
             UnitPrice5Textbox.Clear();
             TotalPrice5Textbox.Clear();
             TotalPrice5Textbox.Text = "0";
-        }
+        } 
         private void TümünüTemizleButton_Click(object sender, EventArgs e)
         {
             Clear1Button_Click(sender, e);
@@ -385,7 +389,7 @@ namespace WinFormsApp1
             if (float.TryParse(weightTextbox.Text, out float weight) && float.TryParse(unitPriceTextbox.Text, out float unitPrice))
             {
                 float subtotalPrice = weight * unitPrice;
-                subtotalPriceTextbox.Text = Convert.ToString(subtotalPrice);
+                subtotalPriceTextbox.Text = subtotalPrice.ToString();
             }
             else
             {
@@ -430,6 +434,50 @@ namespace WinFormsApp1
                 }
             }
             GeneralTotalPriceTextbox.Text = Convert.ToString(generalTotalPrice);
+        }
+
+        private void DatabaseConnection()
+        {
+            // Baðlantý dizesini ayarlayýn (kendi veritabaný bilgilerinize göre güncelleyin)
+            string connectionString = "Server=localhost;Database=deneme;User ID=root;Password=12345;";
+
+            // Baðlantý nesnesi oluþturma
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    // Baðlantýyý açma
+                    connection.Open();
+                    Console.WriteLine("Baðlantý baþarýlý!");
+
+                    // SQL sorgusu oluþturma
+                    string query = "SELECT * FROM satis";
+
+                    // Sorguyu çalýþtýrmak için komut nesnesi oluþturma
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        // Veri okumak için MySqlDataReader kullanma
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                // Örneðin ilk sütunu okuma
+                                MessageBox.Show("Veritabanýna Baðlanýldý.");
+                            }
+                        }
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    Console.WriteLine("Baðlantý hatasý: " + ex.Message);
+                }
+                finally
+                {
+                    // Baðlantýyý kapatma
+                    connection.Close();
+                    Console.WriteLine("Baðlantý kapandý.");
+                }
+            }
         }
     }
 }
