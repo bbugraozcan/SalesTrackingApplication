@@ -3,15 +3,16 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using System.Drawing.Printing;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace WinFormsApp1
 {
     public partial class Form1 : Form
     {
+        private string connectionString = "Server=localhost;Database=deneme;User ID=root;Password=12345;";
         public Form1()
         {
             InitializeComponent();
-            DatabaseConnection();
         }
 
         private void AddSaleButton_Click(object sender, EventArgs e)
@@ -242,12 +243,13 @@ namespace WinFormsApp1
 
             // Müþteri ismini ve datei çek ve yazdýr
             string customerInfo = CustomerInfoTextbox.Text;
-            string date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            DateTime date = DateTime.Now;
+            float generalTotalPrice = float.Parse(GeneralTotalPriceTextbox.Text);
 
             e.Graphics.DrawString($"Müþteri: {customerInfo}", titleFont, Brushes.Black, x, currentY);
             currentY += 20;
 
-            e.Graphics.DrawString($"Tarih: {date}", titleFont, Brushes.Black, x, currentY);
+            e.Graphics.DrawString($"Tarih: {date.ToString("dd/MM/yyyy HH:mm:ss")}", titleFont, Brushes.Black, x, currentY);
             currentY += 20;
 
             // "Satýþ Fiþi" baþlýðý
@@ -331,6 +333,9 @@ namespace WinFormsApp1
             // Toplam Fiyat
             currentY += 10;
             e.Graphics.DrawString($"Toplam: {GeneralTotalPriceTextbox.Text} TL", titleFont, Brushes.Black, x, currentY);
+
+            AddSaleToDatabase(customerInfo, date, generalTotalPrice);
+
         }
 
         private void TotalWeight1Textbox_TextChanged(object sender, EventArgs e)
@@ -420,6 +425,7 @@ namespace WinFormsApp1
             float generalTotalPrice = 0;
             if (dataGridView.Rows.Count == 0 || dataGridView.Rows.Count == 1 && dataGridView.Rows[0].IsNewRow)
             {
+                GeneralTotalPriceTextbox.Text = "0";
                 return;
             }
             else
@@ -436,48 +442,59 @@ namespace WinFormsApp1
             GeneralTotalPriceTextbox.Text = Convert.ToString(generalTotalPrice);
         }
 
-        private void DatabaseConnection()
+        // Satýþ eklemek için yöntem
+        private void AddSaleToDatabase(string customerInfo, DateTime dateOfSale, float totalPrice)
         {
-            // Baðlantý dizesini ayarlayýn (kendi veritabaný bilgilerinize göre güncelleyin)
-            string connectionString = "Server=localhost;Database=deneme;User ID=root;Password=12345;";
-
-            // Baðlantý nesnesi oluþturma
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
-                try
+                conn.Open();
+
+                // satis tablosuna veri ekleme
+                string satisQuery = "INSERT INTO satis (musteri_bilgi, satis_tarih, toplam_fiyat) VALUES (@musteriBilgi, @satisTarih, @toplamFiyat)";
+                MySqlCommand satisCmd = new MySqlCommand(satisQuery, conn);
+                satisCmd.Parameters.AddWithValue("@musteriBilgi", customerInfo);
+                satisCmd.Parameters.AddWithValue("@satisTarih", dateOfSale);
+                satisCmd.Parameters.AddWithValue("@toplamFiyat", totalPrice);
+                satisCmd.ExecuteNonQuery();
+
+                // satis_id'yi almak için son eklenen ID'yi getiriyoruz
+                int satisId = (int)satisCmd.LastInsertedId;
+
+                
+                    // satisdetaylari tablosuna veri ekleme
+                foreach (DataGridViewRow row in dataGridView.Rows)
                 {
-                    // Baðlantýyý açma
-                    connection.Open();
-                    Console.WriteLine("Baðlantý baþarýlý!");
-
-                    // SQL sorgusu oluþturma
-                    string query = "SELECT * FROM satis";
-
-                    // Sorguyu çalýþtýrmak için komut nesnesi oluþturma
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    if (row.Cells[2].Value != null)
                     {
-                        // Veri okumak için MySqlDataReader kullanma
-                        using (MySqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                // Örneðin ilk sütunu okuma
-                                MessageBox.Show("Veritabanýna Baðlanýldý.");
-                            }
-                        }
-                    }
-                }
-                catch (MySqlException ex)
-                {
-                    Console.WriteLine("Baðlantý hatasý: " + ex.Message);
-                }
-                finally
-                {
-                    // Baðlantýyý kapatma
-                    connection.Close();
-                    Console.WriteLine("Baðlantý kapandý.");
+                        string detayQuery = "INSERT INTO satisdetaylari (satis_id, urun_adi, sandik_adeti, toplam_kilo, birim_fiyat, ara_toplam) VALUES (@satisId, @urunAdi, @sandikAdeti, @toplamKilo, @birimFiyat, @araToplam)";
+                        MySqlCommand detayCmd = new MySqlCommand(detayQuery, conn);
+
+                        string productName = row.Cells[2].Value.ToString();
+
+                        string quantity = row.Cells[3].Value.ToString();
+                        int quantityInt = int.Parse(quantity);
+
+                        string weight = row.Cells[4].Value.ToString();
+                        float weightFloat = float.Parse(weight);
+
+                        string unitPrice = row.Cells[5].Value.ToString();
+                        float unitPriceFloat = float.Parse(unitPrice);
+
+                        string subtotalPrice = row.Cells[6].Value.ToString();
+                        float subtotalPriceFloat = float.Parse(subtotalPrice);
+
+                        detayCmd.Parameters.AddWithValue("@satisId", satisId);
+                        detayCmd.Parameters.AddWithValue("@urunAdi", productName);
+                        detayCmd.Parameters.AddWithValue("@sandikAdeti", quantityInt);
+                        detayCmd.Parameters.AddWithValue("@toplamKilo", weightFloat);
+                        detayCmd.Parameters.AddWithValue("@birimFiyat", unitPriceFloat);
+                        detayCmd.Parameters.AddWithValue("@araToplam", subtotalPriceFloat);
+                        detayCmd.ExecuteNonQuery();
+                    }   
                 }
             }
         }
+
     }
+
 }
