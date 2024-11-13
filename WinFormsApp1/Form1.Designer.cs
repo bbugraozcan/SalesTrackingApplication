@@ -736,7 +736,7 @@
             // 
             // GeneralTotalPriceTextbox
             // 
-            GeneralTotalPriceTextbox.Location = new Point(132, 827);
+            GeneralTotalPriceTextbox.Location = new Point(668, 826);
             GeneralTotalPriceTextbox.Name = "GeneralTotalPriceTextbox";
             GeneralTotalPriceTextbox.ReadOnly = true;
             GeneralTotalPriceTextbox.Size = new Size(125, 27);
@@ -746,7 +746,7 @@
             // label22
             // 
             label22.AutoSize = true;
-            label22.Location = new Point(25, 830);
+            label22.Location = new Point(561, 829);
             label22.Name = "label22";
             label22.Size = new Size(101, 20);
             label22.TabIndex = 66;
@@ -826,7 +826,7 @@
             Controls.Add(NumberofCrates1Textbox);
             Controls.Add(Product1Textbox);
             Name = "Form1";
-            Text = "Form1";
+            Text = "Şen Ortaklar Satış Uygulaması";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             ResumeLayout(false);

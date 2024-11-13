@@ -10,6 +10,8 @@ namespace WinFormsApp1
     public partial class Form1 : Form
     {
         private string connectionString = "Server=localhost;Database=deneme;User ID=root;Password=12345;";
+        private bool printSuccessful = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -114,7 +116,6 @@ namespace WinFormsApp1
             CalculateGeneralTotalPrice();
         }
 
-        // Belirtilen satýrdaki toplam fiyatý güncelleyen fonksiyon
         private void UpdateRowTotal(int rowIndex)
         {
             var row = dataGridView.Rows[rowIndex];
@@ -135,9 +136,11 @@ namespace WinFormsApp1
         {
             CalculateGeneralTotalPrice();
         }
-        
+
         private void Form1_Load(object sender, EventArgs e)
         {
+            printDocument1.EndPrint += new PrintEventHandler(printDocument1_EndPrint);
+
             DateTime now = DateTime.Now;
             string formattedDate = now.ToString("dd/MM/yyyy");
             DateTextBox.Text = formattedDate;
@@ -159,6 +162,8 @@ namespace WinFormsApp1
             NumberofCrates3Textbox.Text = "4";
             TotalWeight3Textbox.Text = "32";
             UnitPrice3Textbox.Text = "36,57";
+
+            ZReading(sender, e);
         }
 
         private void Clear1Button_Click(object sender, EventArgs e)
@@ -171,6 +176,7 @@ namespace WinFormsApp1
             TotalPrice1Textbox.Clear();
             TotalPrice1Textbox.Text = "0";
         }
+
         private void Clear2Button_Click(object sender, EventArgs e)
         {
             // TextBox'larý temizle
@@ -181,6 +187,7 @@ namespace WinFormsApp1
             TotalPrice2Textbox.Clear();
             TotalPrice2Textbox.Text = "0";
         }
+
         private void Clear3Button_Click(object sender, EventArgs e)
         {
             // TextBox'larý temizle
@@ -191,6 +198,7 @@ namespace WinFormsApp1
             TotalPrice3Textbox.Clear();
             TotalPrice3Textbox.Text = "0";
         }
+
         private void Clear4Button_Click(object sender, EventArgs e)
         {
             // TextBox'larý temizle
@@ -211,7 +219,8 @@ namespace WinFormsApp1
             UnitPrice5Textbox.Clear();
             TotalPrice5Textbox.Clear();
             TotalPrice5Textbox.Text = "0";
-        } 
+        }
+
         private void TümünüTemizleButton_Click(object sender, EventArgs e)
         {
             Clear1Button_Click(sender, e);
@@ -221,7 +230,6 @@ namespace WinFormsApp1
             Clear5Button_Click(sender, e);
             CustomerInfoTextbox.Clear();
         }
-
 
         private void PrintButton_Click(object sender, EventArgs e)
         {
@@ -334,8 +342,19 @@ namespace WinFormsApp1
             currentY += 10;
             e.Graphics.DrawString($"Toplam: {GeneralTotalPriceTextbox.Text} TL", titleFont, Brushes.Black, x, currentY);
 
-            AddSaleToDatabase(customerInfo, date, generalTotalPrice);
+        }
 
+        private void printDocument1_EndPrint(object sender, PrintEventArgs e)
+        {
+            if (e.Cancel == false && e.PrintAction == PrintAction.PrintToPrinter)
+            {
+                string customerInfo = CustomerInfoTextbox.Text;
+                DateTime date = DateTime.Now;
+                float generalTotalPrice = float.Parse(GeneralTotalPriceTextbox.Text);
+
+                AddSaleToDatabase(customerInfo, date, generalTotalPrice);
+
+            }
         }
 
         private void TotalWeight1Textbox_TextChanged(object sender, EventArgs e)
@@ -388,7 +407,6 @@ namespace WinFormsApp1
             CalculateSubtotalPrice(TotalWeight5Textbox, UnitPrice5Textbox, TotalPrice5Textbox);
         }
 
-        // Ara toplam hesaplama fonksiyonu
         private void CalculateSubtotalPrice(TextBox weightTextbox, TextBox unitPriceTextbox, TextBox subtotalPriceTextbox)
         {
             if (float.TryParse(weightTextbox.Text, out float weight) && float.TryParse(unitPriceTextbox.Text, out float unitPrice))
@@ -405,7 +423,6 @@ namespace WinFormsApp1
             CalculateTotalPrice();
         }
 
-        // Genel toplam fiyatý hesaplayacak fonksiyon
         private void CalculateTotalPrice()
         {
             float totalPrice = 0;
@@ -442,7 +459,6 @@ namespace WinFormsApp1
             GeneralTotalPriceTextbox.Text = Convert.ToString(generalTotalPrice);
         }
 
-        // Satýþ eklemek için yöntem
         private void AddSaleToDatabase(string customerInfo, DateTime dateOfSale, float totalPrice)
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -460,8 +476,8 @@ namespace WinFormsApp1
                 // satis_id'yi almak için son eklenen ID'yi getiriyoruz
                 int satisId = (int)satisCmd.LastInsertedId;
 
-                
-                    // satisdetaylari tablosuna veri ekleme
+
+                // satisdetaylari tablosuna veri ekleme
                 foreach (DataGridViewRow row in dataGridView.Rows)
                 {
                     if (row.Cells[2].Value != null)
@@ -490,11 +506,34 @@ namespace WinFormsApp1
                         detayCmd.Parameters.AddWithValue("@birimFiyat", unitPriceFloat);
                         detayCmd.Parameters.AddWithValue("@araToplam", subtotalPriceFloat);
                         detayCmd.ExecuteNonQuery();
-                    }   
+                    }
                 }
             }
         }
 
-    }
+        private void ZReading(object sender, EventArgs e)
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
 
+                string ZReadingQuery = "SELECT Sum(A.ara_toplam) FROM (SELECT satis_tarih, satisdetaylari.urun_adi, satisdetaylari.sandik_adeti, satisdetaylari.toplam_kilo, satisdetaylari.birim_fiyat, satisdetaylari.ara_toplam FROM satis INNER JOIN satisdetaylari ON satis.satis_id = satisdetaylari.satis_id WHERE DATE(satis.satis_tarih) = curdate()) AS A;";
+                MySqlCommand detayCmd = new MySqlCommand(ZReadingQuery, conn);
+
+                // Sonucu ExecuteScalar ile oku
+                object result = detayCmd.ExecuteScalar();
+
+                // Null kontrolü yap ve sonucu göster
+                if (result != null && result != DBNull.Value)
+                {
+                    decimal totalSales = Convert.ToDecimal(result);
+                    MessageBox.Show("Gün Sonu Toplam Satýþ Tutarý: " + totalSales.ToString("C2"));
+                }
+                else
+                {
+                    MessageBox.Show("Bugün için satýþ kaydý bulunamadý.");
+                }
+            }
+        }
+    }
 }
