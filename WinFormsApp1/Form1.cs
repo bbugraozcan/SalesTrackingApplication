@@ -145,24 +145,6 @@ namespace WinFormsApp1
             string formattedDate = now.ToString("dd/MM/yyyy");
             DateTextBox.Text = formattedDate;
 
-            //Fiþ çýktýsýný kontrl için oluþturulmuþ ve initilaze edilmiþ dummy veriler
-            CustomerInfoTextbox.Text = "Buðra Özcan";
-
-            Product1Textbox.Text = "Domates";
-            NumberofCrates1Textbox.Text = "2";
-            TotalWeight1Textbox.Text = "20";
-            UnitPrice1Textbox.Text = "25,36";
-
-            Product2Textbox.Text = "Salatalýk";
-            NumberofCrates2Textbox.Text = "3";
-            TotalWeight2Textbox.Text = "45";
-            UnitPrice2Textbox.Text = "28,95";
-
-            Product3Textbox.Text = "KývýrcýkMarulKaraman";
-            NumberofCrates3Textbox.Text = "4";
-            TotalWeight3Textbox.Text = "32";
-            UnitPrice3Textbox.Text = "36,57";
-
             ZReading(sender, e);
         }
 
@@ -233,7 +215,7 @@ namespace WinFormsApp1
 
         private void PrintButton_Click(object sender, EventArgs e)
         {
-            printDocument1.DefaultPageSettings.PaperSize = new PaperSize("Custom", 580, 1000); // Kaðýt geniþliði 58 mm ve uzunluðu 100 mm (örnektir)
+            printDocument1.DefaultPageSettings.PaperSize = new PaperSize("Custom", 800, 1000); // Kaðýt geniþliði 58 mm ve uzunluðu 100 mm (örnektir)
             printPreviewDialog1.ShowDialog();
         }
 
@@ -249,10 +231,9 @@ namespace WinFormsApp1
             Font regularFont = new Font("Arial", 8);
             Pen blackPen = new Pen(Color.Black);
 
-            // Müþteri ismini ve datei çek ve yazdýr
+            // Müþteri ismini ve tarihi yazdýr
             string customerInfo = CustomerInfoTextbox.Text;
             DateTime date = DateTime.Now;
-            float generalTotalPrice = float.Parse(GeneralTotalPriceTextbox.Text);
 
             e.Graphics.DrawString($"Müþteri: {customerInfo}", titleFont, Brushes.Black, x, currentY);
             currentY += 20;
@@ -264,84 +245,74 @@ namespace WinFormsApp1
             e.Graphics.DrawString("Satýþ Fiþi", titleFont, Brushes.Black, x, currentY);
             currentY += 20;
 
-            // Baþlýklar
-            string[] headers = { "Ürün", "Adet", "Kilo", "Birim Fiyat", "Ara Toplam" };
-            int[] columnWidths = new int[headers.Length];
+            // Sütun baþlýklarý
+            string[] headers = { "Adet", "Kilo", "Birim Fiyat", "Ara Toplam" };
+            int[] columnWidths = { 50, 50, 100, 100 }; // Sütun geniþlikleri
 
-            // Ürün sütun geniþliði hesaplama
-            int productColumnWidth = totalWidth / 2;
+            // Her ürün için yazdýrma
             foreach (DataGridViewRow row in dataGridView.Rows)
             {
                 if (row.Cells[2].Value != null)
                 {
-                    string productName = row.Cells[2].Value.ToString();
-                    int productNameWidth = (int)e.Graphics.MeasureString(productName, regularFont).Width;
-                    if (productNameWidth > productColumnWidth)
-                    {
-                        productColumnWidth = productNameWidth + 10;
-                    }
-                }
-            }
-            columnWidths[0] = productColumnWidth;
-
-            // Kalan alaný diðer sütunlara daðýt
-            int restWidth = totalWidth - productColumnWidth;
-            int otherColumnWidth = restWidth / (headers.Length - 1);
-            for (int i = 1; i < headers.Length; i++)
-            {
-                columnWidths[i] = otherColumnWidth;
-            }
-
-            // Baþlýk satýrýný yazdýr ve çizgiler ekle
-            int headerX = x;
-            for (int i = 0; i < headers.Length; i++)
-            {
-                e.Graphics.DrawString(headers[i], titleFont, Brushes.Black, headerX, currentY);
-                e.Graphics.DrawRectangle(blackPen, headerX, currentY, columnWidths[i], 20); // Baþlýk için çizgi
-                headerX += columnWidths[i];
-            }
-            currentY += 20;
-            x = 5;
-
-            // Satýþ bilgilerini yazdýr ve her hücrenin etrafýna çizgi ekle
-            foreach (DataGridViewRow row in dataGridView.Rows)
-            {
-                if (row.Cells[2].Value != null)
-                {
+                    // Ürün adý baþlýk olarak yazdýrýlýr
                     string productName = row.Cells[2].Value?.ToString() ?? "";
+                    e.Graphics.DrawString($"Ürün: {productName}", titleFont, Brushes.Black, x, currentY);
+                    currentY += 20;
+
+                    // Sütun baþlýklarý yazdýrýlýr
+                    int headerX = x;
+                    for (int i = 0; i < headers.Length; i++)
+                    {
+                        e.Graphics.DrawString(headers[i], titleFont, Brushes.Black, headerX, currentY);
+                        e.Graphics.DrawRectangle(blackPen, headerX, currentY, columnWidths[i], 20);
+                        headerX += columnWidths[i];
+                    }
+                    currentY += 20;
+
+                    // Ürüne ait veriler yazdýrýlýr
                     string quantity = row.Cells[3].Value?.ToString() ?? "";
                     string weight = row.Cells[4].Value?.ToString() ?? "";
                     string unitPrice = row.Cells[5].Value?.ToString() ?? "";
                     string subtotalPrice = row.Cells[6].Value?.ToString() ?? "";
 
                     int cellX = x;
-                    e.Graphics.DrawString(productName, regularFont, Brushes.Black, cellX, currentY);
+                    e.Graphics.DrawString(quantity, regularFont, Brushes.Black, cellX, currentY);
                     e.Graphics.DrawRectangle(blackPen, cellX, currentY, columnWidths[0], 20);
                     cellX += columnWidths[0];
 
-                    e.Graphics.DrawString(quantity, regularFont, Brushes.Black, cellX, currentY);
+                    e.Graphics.DrawString(weight, regularFont, Brushes.Black, cellX, currentY);
                     e.Graphics.DrawRectangle(blackPen, cellX, currentY, columnWidths[1], 20);
                     cellX += columnWidths[1];
 
-                    e.Graphics.DrawString(weight, regularFont, Brushes.Black, cellX, currentY);
+                    e.Graphics.DrawString(unitPrice, regularFont, Brushes.Black, cellX, currentY);
                     e.Graphics.DrawRectangle(blackPen, cellX, currentY, columnWidths[2], 20);
                     cellX += columnWidths[2];
 
-                    e.Graphics.DrawString(unitPrice, regularFont, Brushes.Black, cellX, currentY);
-                    e.Graphics.DrawRectangle(blackPen, cellX, currentY, columnWidths[3], 20);
-                    cellX += columnWidths[3];
-
                     e.Graphics.DrawString(subtotalPrice, regularFont, Brushes.Black, cellX, currentY);
-                    e.Graphics.DrawRectangle(blackPen, cellX, currentY, columnWidths[4], 20);
+                    e.Graphics.DrawRectangle(blackPen, cellX, currentY, columnWidths[3], 20);
 
-                    currentY += 20;
+                    currentY += 40; // Bir sonraki ürün için boþluk býrak
+                }
+
+                // Sayfa sýnýrlarýný kontrol et
+                if (currentY > e.MarginBounds.Height)
+                {
+                    e.HasMorePages = true; // Yeni sayfa gerektiðini belirt
+                    return;
                 }
             }
 
             // Toplam Fiyat
             currentY += 10;
             e.Graphics.DrawString($"Toplam: {GeneralTotalPriceTextbox.Text} TL", titleFont, Brushes.Black, x, currentY);
+            currentY += 40;
 
+            // Fiþ sonu çizgisi
+            e.Graphics.DrawLine(blackPen, x, currentY, totalWidth, currentY);
+            currentY += 10;
+
+            // Sayfa uzunluðunu belirle
+            e.HasMorePages = false;
         }
 
         private void printDocument1_EndPrint(object sender, PrintEventArgs e)
@@ -516,8 +487,13 @@ namespace WinFormsApp1
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
+                //Hata düzeltilecek, query sonucu tek bir deðer gelmediði için string de saklayamazsýn
+                string ZReadingQuery = "SELECT A.urun_adi AS \"Ürün Adý\", SUM(A.sandik_adeti) AS \"Toplam Sandýk Adeti\", SUM(A.toplam_kilo) AS \"Toplam Kilo\"," +
+                    "A.birim_fiyat AS \"Birim Fiyat\", SUM(A.ara_toplam) AS \"Toplam Satýþ Fiyatý\" " +
+                    "FROM (SELECT satisdetaylari.*,satis.satis_tarih FROM satisdetaylari INNER JOIN satis ON satisdetaylari.satis_id = satis.satis_id) AS A" +
+                    "WHERE DATE(A.satis_tarih) = CURDATE()" +
+                    "GROUP BY A.urun_adi, A.birim_fiyat ORDER BY A.urun_adi;";
 
-                string ZReadingQuery = "SELECT Sum(A.ara_toplam) FROM (SELECT satis_tarih, satisdetaylari.urun_adi, satisdetaylari.sandik_adeti, satisdetaylari.toplam_kilo, satisdetaylari.birim_fiyat, satisdetaylari.ara_toplam FROM satis INNER JOIN satisdetaylari ON satis.satis_id = satisdetaylari.satis_id WHERE DATE(satis.satis_tarih) = curdate()) AS A;";
                 MySqlCommand detayCmd = new MySqlCommand(ZReadingQuery, conn);
 
                 // Sonucu ExecuteScalar ile oku
@@ -527,11 +503,9 @@ namespace WinFormsApp1
                 if (result != null && result != DBNull.Value)
                 {
                     decimal totalSales = Convert.ToDecimal(result);
-                    MessageBox.Show("Gün Sonu Toplam Satýþ Tutarý: " + totalSales.ToString("C2"));
                 }
                 else
                 {
-                    MessageBox.Show("Bugün için satýþ kaydý bulunamadý.");
                 }
             }
         }
