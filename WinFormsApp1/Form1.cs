@@ -4,6 +4,7 @@ using System.Data;
 using System.Drawing.Printing;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace WinFormsApp1
 {
@@ -121,11 +122,11 @@ namespace WinFormsApp1
             var row = dataGridView.Rows[rowIndex];
 
             // Hücrelerdeki deðerleri alýp kontrol ediyoruz, boþsa 0 varsayýyoruz
-            decimal unitPrice = Convert.ToDecimal(row.Cells["BirimFiyatKolon"].Value ?? 0);
-            decimal totalWeight = Convert.ToDecimal(row.Cells["KiloKolon"].Value ?? 0);
+            float unitPrice = float.Parse(row.Cells["BirimFiyatKolon"].Value.ToString());
+            float totalWeight = float.Parse(row.Cells["KiloKolon"].Value.ToString());
 
             // Toplam fiyatý hesapla ve ilgili hücreye yaz
-            decimal totalPrice = unitPrice * totalWeight;
+            double totalPrice = Math.Round(unitPrice * totalWeight, 2, MidpointRounding.AwayFromZero);
             row.Cells["AraToplamKolon"].Value = totalPrice;
 
             // Diðer tüm satýrlardaki toplam fiyatlarýn genel toplamýný hesapla
@@ -145,7 +146,6 @@ namespace WinFormsApp1
             string formattedDate = now.ToString("dd/MM/yyyy");
             DateTextBox.Text = formattedDate;
 
-            ZReading(sender, e);
         }
 
         private void Clear1Button_Click(object sender, EventArgs e)
@@ -215,9 +215,109 @@ namespace WinFormsApp1
 
         private void PrintButton_Click(object sender, EventArgs e)
         {
-            printDocument1.DefaultPageSettings.PaperSize = new PaperSize("Custom", 800, 1000); // Kaðýt geniþliði 58 mm ve uzunluðu 100 mm (örnektir)
-            printPreviewDialog1.ShowDialog();
+            //printDocument1.DefaultPageSettings.PaperSize = new PaperSize("Custom", 800, 1000); // Kaðýt geniþliði 58 mm ve uzunluðu 100 mm (örnektir)
+            //printPreviewDialog1.ShowDialog();
+            //PrintReceipt();
+            PrintPreview();
         }
+
+        private void PrintPreview()
+        {
+            PrintDocument printDocument = new PrintDocument();
+            printDocument.DefaultPageSettings.PaperSize = new PaperSize("80mm", 300, 500); // 80mm termal kaðýt boyutu
+
+            printDocument.PrintPage += (sender, e) =>
+            {
+                Font font = new Font("Consolas", 9); // Monospace font kullanýlýyor
+                float yPos = 10;
+                float leftMargin = 5;
+                int maxWidth = 280; // 80mm termal kaðýt geniþliði
+
+                StringFormat formatRight = new StringFormat() { Alignment = StringAlignment.Far };
+                StringFormat formatCenter = new StringFormat() { Alignment = StringAlignment.Center };
+
+                // Baþlýk
+                e.Graphics.DrawString("=== SATIÞ FÝÞÝ ===", font, Brushes.Black, new RectangleF(leftMargin, yPos, maxWidth, 20), formatCenter);
+                yPos += 20;
+
+                // Müþteri Bilgileri ve Tarih
+                e.Graphics.DrawString($"Müþteri: {CustomerInfoTextbox.Text}", font, Brushes.Black, leftMargin, yPos);
+                yPos += 20;
+                e.Graphics.DrawString($"Tarih: {DateTime.Now:dd/MM/yyyy HH:mm:ss}", font, Brushes.Black, leftMargin, yPos);
+                yPos += 20;
+
+                // Çizgi
+                e.Graphics.DrawString(new string('-', 42), font, Brushes.Black, leftMargin, yPos);
+                yPos += 20;
+
+                // **Sütun baþlýklarý**
+                int col1 = 0;   // Ürün
+                int col2 = 100; // Adet
+                int col3 = 140; // Kilo
+                int col4 = 180; // Fiyat
+                int col5 = 240; // Ara Toplam
+
+                e.Graphics.DrawString("Ürün", font, Brushes.Black, new RectangleF(leftMargin + col1, yPos, col2 - col1, 20));
+                e.Graphics.DrawString("Adet", font, Brushes.Black, new RectangleF(leftMargin + col2, yPos, col3 - col2, 20), formatRight);
+                e.Graphics.DrawString("Kilo", font, Brushes.Black, new RectangleF(leftMargin + col3, yPos, col4 - col3, 20), formatRight);
+                e.Graphics.DrawString("Fiyat", font, Brushes.Black, new RectangleF(leftMargin + col4, yPos, col5 - col4, 20), formatRight);
+                e.Graphics.DrawString("AraToplam", font, Brushes.Black, new RectangleF(leftMargin + col5, yPos, maxWidth - col5, 20), formatRight);
+                yPos += 20;
+
+                // **Ürün Listesi**
+                foreach (DataGridViewRow row in dataGridView.Rows)
+                {
+                    if (row.Cells[2].Value != null)
+                    {
+                        string productName = row.Cells[2].Value?.ToString() ?? "";
+                        string quantity = row.Cells[3].Value?.ToString() ?? "";
+                        string weight = row.Cells[4].Value?.ToString() ?? "";
+                        string unitPrice = row.Cells[5].Value?.ToString() ?? "";
+                        string subtotalPrice = row.Cells[6].Value?.ToString() ?? "";
+
+                        // Ürün ismi
+                        e.Graphics.DrawString(productName, font, Brushes.Black, new RectangleF(leftMargin + col1, yPos, col2 - col1, 20));
+
+                        // Miktar ve fiyat bilgileri
+                        e.Graphics.DrawString(quantity, font, Brushes.Black, new RectangleF(leftMargin + col2, yPos, col3 - col2, 20), formatRight);
+                        e.Graphics.DrawString(weight, font, Brushes.Black, new RectangleF(leftMargin + col3, yPos, col4 - col3, 20), formatRight);
+                        e.Graphics.DrawString(unitPrice, font, Brushes.Black, new RectangleF(leftMargin + col4, yPos, col5 - col4, 20), formatRight);
+                        e.Graphics.DrawString(subtotalPrice, font, Brushes.Black, new RectangleF(leftMargin + col5, yPos, maxWidth - col5, 20), formatRight);
+
+                        yPos += 20;
+                    }
+                }
+
+                // Toplam Fiyat
+                yPos += 10;
+                e.Graphics.DrawString($"Toplam: {GeneralTotalPriceTextbox.Text} TL", font, Brushes.Black, new RectangleF(leftMargin, yPos, maxWidth, 20), formatRight);
+                yPos += 30;
+
+                // Çizgi ve kapanýþ mesajý
+                e.Graphics.DrawString(new string('-', 42), font, Brushes.Black, leftMargin, yPos);
+            };
+
+            printDocument.EndPrint += (sender, e) =>
+            {
+                if (e.Cancel == false && e.PrintAction == PrintAction.PrintToPrinter)
+                {
+                    string customerInfo = CustomerInfoTextbox.Text;
+                    DateTime date = DateTime.Now;
+                    float generalTotalPrice = float.Parse(GeneralTotalPriceTextbox.Text);
+
+                    AddSaleToDatabase(customerInfo, date, generalTotalPrice);
+
+                }
+            };
+
+            // Önizleme penceresi
+            PrintPreviewDialog previewDialog = new PrintPreviewDialog
+            {
+                Document = printDocument
+            };
+
+            previewDialog.ShowDialog();
+        } //escpos çýktýsýný görmek için yazýldý, silinebilirs
 
         private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
         {
@@ -313,7 +413,7 @@ namespace WinFormsApp1
 
             // Sayfa uzunluðunu belirle
             e.HasMorePages = false;
-        }
+        } //silinebilir
 
         private void printDocument1_EndPrint(object sender, PrintEventArgs e)
         {
@@ -326,7 +426,7 @@ namespace WinFormsApp1
                 AddSaleToDatabase(customerInfo, date, generalTotalPrice);
 
             }
-        }
+        } //silinebilir
 
         private void TotalWeight1Textbox_TextChanged(object sender, EventArgs e)
         {
@@ -382,7 +482,8 @@ namespace WinFormsApp1
         {
             if (float.TryParse(weightTextbox.Text, out float weight) && float.TryParse(unitPriceTextbox.Text, out float unitPrice))
             {
-                float subtotalPrice = weight * unitPrice;
+                //float subtotalPrice = weight * unitPrice;
+                double subtotalPrice = Math.Round(weight * unitPrice, 2, MidpointRounding.AwayFromZero);
                 subtotalPriceTextbox.Text = subtotalPrice.ToString();
             }
             else
@@ -487,27 +588,174 @@ namespace WinFormsApp1
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
-                //Hata düzeltilecek, query sonucu tek bir deðer gelmediði için string de saklayamazsýn
-                string ZReadingQuery = "SELECT A.urun_adi AS \"Ürün Adý\", SUM(A.sandik_adeti) AS \"Toplam Sandýk Adeti\", SUM(A.toplam_kilo) AS \"Toplam Kilo\"," +
-                    "A.birim_fiyat AS \"Birim Fiyat\", SUM(A.ara_toplam) AS \"Toplam Satýþ Fiyatý\" " +
-                    "FROM (SELECT satisdetaylari.*,satis.satis_tarih FROM satisdetaylari INNER JOIN satis ON satisdetaylari.satis_id = satis.satis_id) AS A" +
-                    "WHERE DATE(A.satis_tarih) = CURDATE()" +
-                    "GROUP BY A.urun_adi, A.birim_fiyat ORDER BY A.urun_adi;";
 
-                MySqlCommand detayCmd = new MySqlCommand(ZReadingQuery, conn);
+                string ZReadingQuery = "SELECT A.urun_adi AS \"Ürün Adý\", SUM(A.sandik_adeti) AS \"Toplam Sandýk Adeti\", " +
+                                       "SUM(A.toplam_kilo) AS \"Toplam Kilo\", A.birim_fiyat AS \"Birim Fiyat\", " +
+                                       "SUM(A.ara_toplam) AS \"Toplam Satýþ Fiyatý\", SUM(A.ara_toplam) AS \"Genel Toplam\" " +  // Toplam fiyat
+                                       "FROM (SELECT satisdetaylari.*, satis.satis_tarih FROM satisdetaylari " +
+                                       "INNER JOIN satis ON satisdetaylari.satis_id = satis.satis_id) AS A " +
+                                       "WHERE DATE(A.satis_tarih) = CURDATE() " +
+                                       "GROUP BY A.urun_adi, A.birim_fiyat ORDER BY A.urun_adi;";
 
-                // Sonucu ExecuteScalar ile oku
-                object result = detayCmd.ExecuteScalar();
+                MySqlCommand cmd = new MySqlCommand(ZReadingQuery, conn);
 
-                // Null kontrolü yap ve sonucu göster
-                if (result != null && result != DBNull.Value)
+                // ExecuteReader ile veri alýyoruz
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                // Fiþ yazdýrmaya baþlýyoruz
+                PrintDocument printDocument = new PrintDocument();
+                printDocument.DefaultPageSettings.PaperSize = new PaperSize("80mm", 300, 500);  // 80mm Termal kaðýt
+
+                printDocument.PrintPage += (sender, e) =>
                 {
-                    decimal totalSales = Convert.ToDecimal(result);
-                }
-                else
+                    Font font = new Font("Consolas", 9);  // Termal yazýcý için uygun font
+                    float yPos = 10;
+                    float leftMargin = 5;
+                    int maxWidth = 280; // 80mm kaðýt için geniþlik
+
+                    // Baþlýklar
+                    e.Graphics.DrawString("=== GÜN SONU FÝÞÝ ===", font, Brushes.Black, leftMargin, yPos);
+                    yPos += 20;
+
+                    e.Graphics.DrawString($"Tarih: {DateTime.Now:dd/MM/yyyy HH:mm:ss}", font, Brushes.Black, leftMargin, yPos);
+                    yPos += 20;
+
+                    e.Graphics.DrawString("---------------------------------", font, Brushes.Black, leftMargin, yPos);
+                    yPos += 20;
+
+                    // Sütun baþlýklarý
+                    string header = "Ürün          Adet  Kilo  Fiyat  AraToplam";
+                    e.Graphics.DrawString(header, font, Brushes.Black, leftMargin, yPos);
+                    yPos += 20;
+
+                    decimal totalSales = 0;  // Toplam satýþ fiyatý burada tutulacak
+
+                    // Verileri yazdýr
+                    while (reader.Read())
+                    {
+                        string productName = reader["Ürün Adý"].ToString();
+                        string quantity = reader["Toplam Sandýk Adeti"].ToString();
+                        string weight = reader["Toplam Kilo"].ToString();
+                        string unitPrice = reader["Birim Fiyat"].ToString();
+                        string subtotalPrice = reader["Toplam Satýþ Fiyatý"].ToString();
+
+                        // Fiþe satýr ekleyelim
+                        string line = $"{productName.PadRight(10)} {quantity.PadRight(4)} {weight.PadRight(4)} {unitPrice.PadRight(6)} {subtotalPrice.PadRight(8)}";
+                        e.Graphics.DrawString(line, font, Brushes.Black, leftMargin, yPos);
+                        yPos += 20;
+
+                        // Toplam satýþ fiyatýný ekliyoruz
+                        totalSales += Convert.ToDecimal(reader["Toplam Satýþ Fiyatý"]);
+                    }
+
+                    // Genel toplam satýþ fiyatý
+                    e.Graphics.DrawString($"Toplam: {totalSales:C} TL", font, Brushes.Black, leftMargin, yPos);
+                    yPos += 40;
+
+                    e.Graphics.DrawString("---------------------------------", font, Brushes.Black, leftMargin, yPos);
+                };
+
+                // Yazdýrma iþlemi
+                //printDocument.Print();
+
+                // Önizleme penceresi
+                PrintPreviewDialog previewDialog = new PrintPreviewDialog
                 {
+                    Document = printDocument
+                };
+
+                previewDialog.ShowDialog();
+            }
+        }
+
+        private void PrintReceipt()
+        {
+            string printerName = "YazýcýDeneme"; // Yazýcýnýzýn adý
+
+            StringBuilder receipt = new StringBuilder();
+
+            // **1. Yazýcýyý sýfýrla**
+            receipt.Append("\x1B\x40"); // ESC @ (Reset)
+
+            // **2. Baþlýk Yazdýr (Ortalý)**
+            receipt.Append("\x1B\x61\x01"); // Metni ortala
+            receipt.Append("=== SATIÞ FÝÞÝ ===\n");
+            receipt.Append("\x1B\x61\x00"); // Metni sola hizala
+            receipt.Append("--------------------------------\n");
+
+            // **3. Müþteri ve Tarih Bilgileri**
+            string customerInfo = CustomerInfoTextbox.Text;
+            string date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            receipt.Append($"Müþteri: {customerInfo}\n");
+            receipt.Append($"Tarih: {date}\n");
+            receipt.Append("--------------------------------\n");
+
+            // **4. Ürün Listesi Baþlýklarý**
+            receipt.Append("Ürün        Adet  Kilo  BirimFiyat  AraToplam\n");
+            receipt.Append("--------------------------------\n");
+
+            // **5. Ürünleri Yazdýr**
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                if (row.Cells[2].Value != null)
+                {
+                    string productName = row.Cells[2].Value?.ToString() ?? "";
+                    string quantity = row.Cells[3].Value?.ToString() ?? "";
+                    string weight = row.Cells[4].Value?.ToString() ?? "";
+                    string unitPrice = row.Cells[5].Value?.ToString() ?? "";
+                    string subtotalPrice = row.Cells[6].Value?.ToString() ?? "";
+
+                    receipt.Append($"{productName.PadRight(10)} {quantity.PadRight(4)} {weight.PadRight(4)} {unitPrice.PadRight(10)} {subtotalPrice.PadRight(10)}\n");
                 }
             }
+
+            receipt.Append("--------------------------------\n");
+
+            // **6. Toplam Fiyatý Yazdýr**
+            receipt.Append($"Toplam: {GeneralTotalPriceTextbox.Text} TL\n");
+            receipt.Append("--------------------------------\n");
+
+            // **7. Teþekkür Mesajý**
+            receipt.Append("\x1B\x61\x01"); // Metni ortala
+            receipt.Append("Bizi tercih ettiðiniz için teþekkürler!\n");
+            receipt.Append("\x1B\x61\x00"); // Metni sola hizala
+            receipt.Append("--------------------------------\n");
+
+            // **8. Kesme Komutu**
+            receipt.Append("\x1D\x56\x41"); // Kaðýdý kes
+
+            // **9. Yazýcýya Gönder**
+            RawPrinterHelper.SendStringToPrinter(printerName, receipt.ToString());
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ZReading(sender, e);
+        }
+    }
+    // **ESC/POS Komutlarýný Yazýcýya Gönderen Yardýmcý Sýnýf**
+    public class RawPrinterHelper
+    {
+        [DllImport("winspool.Drv", EntryPoint = "OpenPrinterA")]
+        public static extern bool OpenPrinter(string pPrinterName, out IntPtr phPrinter, IntPtr pDefault);
+
+        [DllImport("winspool.Drv", EntryPoint = "ClosePrinter")]
+        public static extern bool ClosePrinter(IntPtr hPrinter);
+
+        [DllImport("winspool.Drv", EntryPoint = "WritePrinter")]
+        public static extern bool WritePrinter(IntPtr hPrinter, IntPtr pBytes, int dwCount, out int dwWritten);
+
+        public static bool SendStringToPrinter(string printerName, string text)
+        {
+            IntPtr printerHandle;
+            if (!OpenPrinter(printerName, out printerHandle, IntPtr.Zero)) return false;
+
+            IntPtr pBytes = Marshal.StringToCoTaskMemAnsi(text);
+            int dwWritten;
+            bool success = WritePrinter(printerHandle, pBytes, text.Length, out dwWritten);
+            Marshal.FreeCoTaskMem(pBytes);
+            ClosePrinter(printerHandle);
+            return success;
         }
     }
 }

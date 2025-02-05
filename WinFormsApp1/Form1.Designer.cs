@@ -105,6 +105,7 @@
             Product5Textbox = new TextBox();
             GeneralTotalPriceTextbox = new TextBox();
             label22 = new Label();
+            ZReadingButton = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
@@ -752,12 +753,23 @@
             label22.TabIndex = 66;
             label22.Text = "Genel Toplam";
             // 
+            // ZReadingButton
+            // 
+            ZReadingButton.Location = new Point(14, 820);
+            ZReadingButton.Name = "ZReadingButton";
+            ZReadingButton.Size = new Size(125, 39);
+            ZReadingButton.TabIndex = 68;
+            ZReadingButton.Text = "GÜNSONU AL";
+            ZReadingButton.UseVisualStyleBackColor = true;
+            ZReadingButton.Click += button1_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GradientInactiveCaption;
             ClientSize = new Size(957, 882);
+            Controls.Add(ZReadingButton);
             Controls.Add(GeneralTotalPriceTextbox);
             Controls.Add(label22);
             Controls.Add(label17);
@@ -911,5 +923,6 @@
         private TextBox Product5Textbox;
         private TextBox GeneralTotalPriceTextbox;
         private Label label22;
+        private Button ZReadingButton;
     }
 }
